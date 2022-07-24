@@ -2,24 +2,31 @@ import bcrypt
 import SQLconnection
 import os
 from getpass import getpass
+import json
 
 cursor = SQLconnection.db.cursor()
 
-sql = ('''SELECT CONTRASENIA FROM EMPLEADO WHERE USUARIO = (%s) ''')
+def login():
+    usuario = str(input('Ingrese usuario: '))
 
-usuario = str(input('Ingrese usuario: '))
+    sql = '''SELECT USUARIO FROM EMPLEADO WHERE USUARIO = (%s)'''
 
-contrasenia = getpass('Ingrese contraseña: ')
+    cursor.execute(sql, (usuario, ))
 
-cursor.execute(sql, (usuario, ))
+    resultado = cursor.fetchone()
 
-resultado = cursor.fetchone()
+    if resultado != None :
+        sql = ('''SELECT CONTRASENIA FROM EMPLEADO WHERE USUARIO = (%s) ''')
 
-p = resultado[0]
+        contrasenia = getpass('Ingrese contraseña: ')
 
-if bcrypt.checkpw(contrasenia.encode('UTF-8'), p.encode('UTF-8')):
-    print('it matches!')
-else:
-    print('it doesnt!')
+        cursor.execute(sql, (usuario, ))
 
+        resultado = cursor.fetchone()
 
+        p = resultado[0]
+
+        return bcrypt.checkpw(contrasenia.encode('UTF-8'), p.encode('UTF-8'))
+
+    else:
+        return False

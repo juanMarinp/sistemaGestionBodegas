@@ -1,10 +1,22 @@
 import SQLconnection 
+import bcrypt
+import os
+from getpass import getpass
+import login
+import newUser
 
-cursor = SQLconnection.db.cursor()
+print(login.login())
 
-cursor.execute('SELECT * FROM COMUNA')
+'''
+access = False
 
-resultado = cursor.fetchall()
+if login.login():
+    print('|...Contraseña correcta...|')
+    access = True
+else:
+    print('|...Contraseña o usuario incorrectos...|')
+    access = False
 
-for x in resultado:
-    print(x)
+#newUser.newUser()
+
+'''

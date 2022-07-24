@@ -2,67 +2,58 @@ import bcrypt
 import SQLconnection
 from getpass import getpass
 import os
+from classes import Jefe
 
 def clearLinux():
     os.system('clear')
-
-class Empleado:
-    def __init__(self, rut, nombre, apellido, id_bodega, usuario, contrasenia, id_cargo):
-        self.rut = rut
-        self.nombre = nombre
-        self.apellido = apellido 
-        self.id_bodega = id_bodega
-        self.usuario = usuario
-        self.contrasenia = contrasenia
-        self.id_cargo = id_cargo
-        self.jefe = None
 
 cursor = SQLconnection.db.cursor()
 
 sql = 'INSERT INTO EMPLEADO(rut, nombre, id_bodega, usuario, contrasenia, apellido, id_cargo) VALUES (%s,%s,%s,%s,%s,%s,%s)'
 
-rut = str(input('Ingrese rut: '))
+def newUser():
+    rut = str(input('Ingrese rut: '))
 
-clearLinux()
+    clearLinux()
 
-nombre = str(input('Ingrese nombre: '))
+    nombre = str(input('Ingrese nombre: '))
 
-clearLinux()
-apellido = str(input('Ingrese apellido: '))
+    clearLinux()
+    apellido = str(input('Ingrese apellido: '))
 
-clearLinux()
-cursor.execute('select * from BODEGA')
+    clearLinux()
+    cursor.execute('select * from BODEGA')
 
-resultado = cursor.fetchall()
+    resultado = cursor.fetchall()
 
-for x in resultado:
-    print(x)
+    for x in resultado:
+        print(x)
 
-id_bodega = int(input('Ingrese id bodega: '))
+    id_bodega = int(input('Ingrese id bodega: '))
 
-clearLinux()
-usuario = str(input('Ingrese nombre de usuario: '))
+    clearLinux()
+    usuario = str(input('Ingrese nombre de usuario: '))
 
-clearLinux()
-contrasenia = getpass('Ingrese contraseña: ')
+    clearLinux()
+    contrasenia = getpass('Ingrese contraseña: ')
 
-clearLinux()
-contrasenia = bcrypt.hashpw(contrasenia.encode('UTF-8'), bcrypt.gensalt())
+    clearLinux()
+    contrasenia = bcrypt.hashpw(contrasenia.encode('UTF-8'), bcrypt.gensalt())
 
-cursor.execute('select * from CARGO')
+    cursor.execute('select * from CARGO')
 
-resultado = cursor.fetchall()
+    resultado = cursor.fetchall()
 
-for x in resultado:
-    print(x)
+    for x in resultado:
+        print(x)
 
-id_cargo = int(input('Ingrese id de cargo: '))
+    id_cargo = int(input('Ingrese id de cargo: '))
 
-clearLinux()
-empleado = Empleado(rut, nombre, apellido, id_bodega, usuario, contrasenia, id_cargo)
+    clearLinux()
+    jefe = Jefe(rut, nombre, apellido, id_bodega, usuario, contrasenia, id_cargo)
 
-val = (empleado.rut, empleado.nombre, empleado.id_bodega, empleado.usuario, empleado.contrasenia,empleado.apellido, empleado.id_cargo)
+    val = (jefe.rut, jefe.nombre, jefe.id_bodega, jefe.usuario, jefe.contrasenia, jefe.apellido, jefe.id_cargo)
 
-cursor.execute(sql, val)
+    cursor.execute(sql, val)
 
-SQLconnection.db.commit()
+    SQLconnection.db.commit()
