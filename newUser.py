@@ -2,7 +2,7 @@ import bcrypt
 import SQLconnection
 from getpass import getpass
 import os
-from classes import Jefe
+from classes import Jefe, Bodeguero
 from itertools import cycle
 import time
 
@@ -39,8 +39,6 @@ def clearLinux():
     os.system('clear')
 
 cursor = SQLconnection.db.cursor(dictionary=True)
-
-sql = 'INSERT INTO EMPLEADO(rut, nombre, id_bodega, usuario, contrasenia, apellido, id_cargo) VALUES (%s,%s,%s,%s,%s,%s,%s)'
 
 def newUser():
 
@@ -112,13 +110,32 @@ def newUser():
 
         id_cargo = int(input('Ingrese id de cargo: '))
 
-        clearLinux()
-        jefe = Jefe(rut, nombre, apellido, id_bodega, usuario, contrasenia, id_cargo)
+        if id_cargo == 2 or id_cargo == 1:
 
-        val = (jefe.rut, jefe.nombre, jefe.id_bodega, jefe.usuario, jefe.contrasenia, jefe.apellido, jefe.id_cargo)
+            sql = 'INSERT INTO EMPLEADO(rut, nombre, id_bodega, usuario, contrasenia, apellido, id_cargo) VALUES (%s,%s,%s,%s,%s,%s,%s)'
+            clearLinux()
+            jefe = Jefe(rut, nombre, apellido, id_bodega, usuario, contrasenia, id_cargo)
 
-        cursor.execute(sql, val)
+            val = (jefe.rut, jefe.nombre, jefe.id_bodega, jefe.usuario, jefe.contrasenia, jefe.apellido, jefe.id_cargo)
 
-        SQLconnection.db.commit()
+            cursor.execute(sql, val)
 
+            SQLconnection.db.commit()
+        else: 
+            cursor.execute('''SELECT RUT, NOMBRE, APELLIDO FROM EMPLEADO WHERE ID_CARGO = 2''')
+            
+            resultado = cursor.fetchall()
+
+            for x in resultado:
+                print(x)
+
+            id_jefe = str(input('Ingrese rut jefe: '))
+            bodeguero = Bodeguero(rut, nombre, apellido, id_bodega, usuario, contrasenia, id_cargo, id_jefe)
+
+            sql = 'INSERT INTO EMPLEADO(rut, nombre,rut_jefe, id_bodega, usuario, contrasenia, apellido, id_cargo) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)'
+
+            val = (bodeguero.rut, bodeguero.nombre,bodeguero.id_jefe, bodeguero.id_bodega, bodeguero.usuario, bodeguero.contrasenia, bodeguero.apellido, bodeguero.id_cargo)
+            cursor.execute(sql, val)
+
+            SQLconnection.db.commit()
 newUser()
