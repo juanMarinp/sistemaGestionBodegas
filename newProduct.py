@@ -2,19 +2,54 @@ import SQLconnection
 import os
 from classes import Producto
 
+def clearLinux():
+    os.system('clear')
+
 cursor = SQLconnection.db.cursor()
 
-def addAutorProducto(ident):
-    sql = '''INSERT INTO AUTOR_PRODUCTO VALUES (%s, %s)'''
+def buscarAutorProducto():
+    sql = '''SELECT ID, NOMBRE FROM AUTOR WHERE NOMBRE LIKE %s '''
+    nombre = str(input('Ingrese nombre autor: '))
 
-    cursor.execute('SELECT ID, NOMBRE FROM AUTOR')
+    nombre = '%' + nombre + '%'
+
+    cursor.execute(sql, (nombre, ))
 
     resultado = cursor.fetchall()
 
     for x in resultado:
         print(x)
 
+    pregunta = str(input('Desea buscar nuevamente?[S/n]: ')).upper()
+
+    if pregunta == 'S':
+        return True
+    else:
+        return False
+
+def addAutorProducto(ident):
+    sql = '''INSERT INTO AUTOR_PRODUCTO VALUES (%s, %s)'''
+
+    cursor.execute('SELECT ID, NOMBRE FROM AUTOR ORDER BY NOMBRE')
+
+    resultado = cursor.fetchall()
+
+    for x in resultado:
+        print(x)
+
+    preguntaBuscar = str(input('Desea buscar autor?[S/n]: ')).upper()
+
+    if preguntaBuscar == 'S':
+        buscar = True
+    else:
+        buscar = False
+    if preguntaBuscar:
+        while buscarAutorProducto():
+            clearLinux()    
+
     id_autor = int(input('Ingrese id de autor'))
+
+    clearLinux()
 
     val = (ident, id_autor)
 
@@ -22,7 +57,9 @@ def addAutorProducto(ident):
 
     SQLconnection.db.commit()
 
-    pregunta = str(input('Desea agregar otro autor?[S/n]')).upper()
+    pregunta = str(input('Desea agregar otro autor?[S/n]: ')).upper()
+
+    clearLinux()
 
     if pregunta == 'S':
         return True
@@ -31,9 +68,12 @@ def addAutorProducto(ident):
 
 def newProduct():
     ident = str(input('Ingrese id del producto: '))
+    
+    clearLinux()
 
     titulo = str(input('Ingrese el titulo del producto: '))
 
+    clearLinux()
     cursor.execute('''SELECT * FROM TIPO_PRODUCTO''')
 
     resultado = cursor.fetchall()
@@ -43,6 +83,7 @@ def newProduct():
 
     id_tipo = int(input('Ingrese el id del tipo de producto: '))
 
+    clearLinux()
 
     cursor.execute('''SELECT ID, NOMBRE FROM EDITORIAL''')
 
@@ -53,8 +94,10 @@ def newProduct():
 
     id_editorial = int(input('Ingrese id de la editorial: '))
 
+    clearLinux()
     desc = str(input('Ingrese descripcion del producto: '))
 
+    clearLinux()
 
     cursor.execute('''SELECT * FROM BODEGA''')
 
@@ -65,6 +108,7 @@ def newProduct():
     
     id_bodega = int(input('Ingrese id de la bodega: '))
 
+    clearLinux()
     producto = Producto(ident, id_tipo, id_editorial, desc, id_bodega, titulo)
 
     val = (producto.ident , producto.id_tipo , producto.id_editorial , producto.descripcion , producto.id_bodega, producto.titulo)
@@ -76,6 +120,6 @@ def newProduct():
     SQLconnection.db.commit()
 
     while addAutorProducto(producto.ident):
-        cleanLinux()
+        clearLinux()
 
 newProduct()
