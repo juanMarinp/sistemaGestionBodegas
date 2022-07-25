@@ -29,4 +29,5 @@ def login():
         return bcrypt.checkpw(contrasenia.encode('UTF-8'), p.encode('UTF-8'))
 
     else:
+        contrasenia = getpass('Ingrese contraseña: ')
         return False

@@ -5,9 +5,6 @@ from getpass import getpass
 import login
 import newUser
 
-print(login.login())
-
-'''
 access = False
 
 if login.login():
@@ -18,5 +15,3 @@ else:
     access = False
 
 #newUser.newUser()
-
-'''
