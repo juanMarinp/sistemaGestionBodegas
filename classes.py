@@ -20,4 +20,11 @@ class Bodeguero:
         self.contrasenia = contrasenia
         self.id_cargo = id_cargo
         self.id_jefe = id_jefe
-
+class Producto:
+    def __init__(self, ident, id_tipo, id_editorial, descripcion, id_bodega, titulo):
+        self.ident = ident
+        self.id_tipo = id_tipo
+        self.id_editorial = id_editorial
+        self.descripcion = descripcion
+        self.id_bodega = id_bodega
+        self.titulo = titulo
