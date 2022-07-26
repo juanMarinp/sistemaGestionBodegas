@@ -45,9 +45,9 @@ def addAutorProducto(ident):
         buscar = False
     if preguntaBuscar:
         while buscarAutorProducto():
-            clearLinux()    
+            continue    
 
-    id_autor = int(input('Ingrese id de autor'))
+    id_autor = int(input('Ingrese id de autor: '))
 
     clearLinux()
 
@@ -67,6 +67,7 @@ def addAutorProducto(ident):
         return False
 
 def newProduct():
+    clearLinux()
     ident = str(input('Ingrese id del producto: '))
     
     clearLinux()
@@ -98,22 +99,11 @@ def newProduct():
     desc = str(input('Ingrese descripcion del producto: '))
 
     clearLinux()
+    producto = Producto(ident, id_tipo, id_editorial, desc, titulo)
 
-    cursor.execute('''SELECT * FROM BODEGA''')
+    val = (producto.ident , producto.id_tipo , producto.id_editorial , producto.descripcion , producto.titulo)
 
-    resultado = cursor.fetchall()
-
-    for x in resultado:
-        print(x)
-    
-    id_bodega = int(input('Ingrese id de la bodega: '))
-
-    clearLinux()
-    producto = Producto(ident, id_tipo, id_editorial, desc, id_bodega, titulo)
-
-    val = (producto.ident , producto.id_tipo , producto.id_editorial , producto.descripcion , producto.id_bodega, producto.titulo)
-
-    sql = '''INSERT INTO PRODUCTO VALUES (%s, %s, %s, %s, %s, %s)'''
+    sql = '''INSERT INTO PRODUCTO VALUES (%s, %s, %s, %s, %s)'''
 
     cursor.execute(sql, val)
 

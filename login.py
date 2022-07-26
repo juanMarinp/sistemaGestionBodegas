@@ -2,7 +2,6 @@ import bcrypt
 import SQLconnection
 import os
 from getpass import getpass
-import json
 
 cursor = SQLconnection.db.cursor()
 
