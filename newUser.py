@@ -23,6 +23,7 @@ def validarUsuario(usuario):
         print('|....Nombre usuario ya existe....|')
         validacion = False
         time.sleep(1)
+        clearLinux()
     else:
         validacion = True
 
@@ -138,4 +139,3 @@ def newUser():
             cursor.execute(sql, val)
 
             SQLconnection.db.commit()
-newUser()
