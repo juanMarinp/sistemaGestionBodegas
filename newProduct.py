@@ -40,10 +40,6 @@ def addAutorProducto(ident):
     preguntaBuscar = str(input('Desea buscar autor?[S/n]: ')).upper()
 
     if preguntaBuscar == 'S':
-        buscar = True
-    else:
-        buscar = False
-    if preguntaBuscar:
         while buscarAutorProducto():
             continue    
 
