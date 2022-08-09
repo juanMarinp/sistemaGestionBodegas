@@ -32,5 +32,4 @@ def addRemoveProduct():
 
     SQLconnection.db.commit()
 
-
 addRemoveProduct()
