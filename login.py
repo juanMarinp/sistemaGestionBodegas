@@ -5,8 +5,7 @@ from getpass import getpass
 
 cursor = SQLconnection.db.cursor()
 
-def login():
-    usuario = str(input('Ingrese usuario: '))
+def login(usuario):
 
     sql = '''SELECT USUARIO FROM EMPLEADO WHERE USUARIO = (%s)'''
 

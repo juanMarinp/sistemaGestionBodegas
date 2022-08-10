@@ -4,12 +4,16 @@ import os
 from getpass import getpass
 import login
 import newUser
+import adminMenu
+
+cursor = SQLconnection.db.cursor(dictionary=True)
 
 access = False
 accessContador = 0
 
 while access == False:
-    if login.login():
+    usuario = str(input('Ingrese nombre de usuario: '))
+    if login.login(usuario):
         print('|...Contraseña correcta...|')
         access = True
     else:
@@ -19,3 +23,32 @@ while access == False:
     if accessContador == 3:
         print('|...Ha excedido el máximo de intentos...|')
         break
+
+sql = ('''SELECT CARGO.NOMBRE FROM CARGO JOIN EMPLEADO ON EMPLEADO.ID_CARGO = CARGO.ID WHERE USUARIO = %s''')
+
+cursor.execute(sql, (usuario, ))
+
+resultado = cursor.fetchone()
+
+cargo = resultado['NOMBRE']
+
+if cargo == 'ADMIN':
+
+    bucle = True
+
+    while bucle:
+
+        print('|------- Menú -------|')
+
+        print('(1) Añadir usuario')
+        print('(2) Editar usuario')
+        print('(9) Eliminar usuario')
+        print('(10) Salir')
+
+        opcion = int(input('Ingrese número opción: '))
+
+        adminMenu.adminMenu(opcion)
+
+        if opcion == 10:
+            bucle = False
+
