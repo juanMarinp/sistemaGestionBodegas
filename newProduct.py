@@ -2,6 +2,13 @@ import SQLconnection
 import os
 from classes import Producto
 
+def obtenerIdBodegas():
+    cursor = SQLconnection.db.cursor(dictionary=True)
+    cursor.execute('''SELECT ID FROM BODEGA''')
+    resultado = cursor.fetchall()
+    for x in resultado:
+        return x
+
 def clearLinux():
     os.system('clear')
 
