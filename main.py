@@ -5,6 +5,7 @@ from getpass import getpass
 import login
 import newUser
 import adminMenu
+import jefeMenu
 
 cursor = SQLconnection.db.cursor(dictionary=True)
 
@@ -52,3 +53,21 @@ if cargo == 'ADMIN':
         if opcion == 10:
             bucle = False
 
+if cargo == 'JEFE':
+
+    bucle = True
+
+    while bucle:
+
+        print('|------- Menú -------|')
+
+        print('(1) Añadir bodega')
+        print('(2) Añadir producto')
+        print('(10) Salir')
+
+        opcion = int(input('Ingrese número opción: '))
+
+        jefeMenu.jefeMenu(opcion)
+
+        if opcion == 10:
+            bucle = False

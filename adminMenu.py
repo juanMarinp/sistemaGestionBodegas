@@ -1,7 +1,6 @@
 import newUser
 import time
 
-
 def adminMenu(opcion):
 
     if opcion == 1:

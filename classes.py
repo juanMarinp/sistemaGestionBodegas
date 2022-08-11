@@ -26,3 +26,7 @@ class Producto:
         self.id_editorial = id_editorial
         self.descripcion = descripcion
         self.titulo = titulo
+class Bodega:
+    def __init__(self, calle, ident_comuna):
+        self.calle = calle
+        self.ident_comuna = ident_comuna

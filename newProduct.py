@@ -114,5 +114,3 @@ def newProduct():
 
     while addAutorProducto(producto.ident):
         clearLinux()
-
-newProduct()
