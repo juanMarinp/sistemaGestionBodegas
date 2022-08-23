@@ -1,7 +1,9 @@
 # sistemaGestionBodegas
 
 paquetes instalados:
+
 pip install mysql-connector-python
+
 pip install bcrypt
 
 Problematica a resolver:
@@ -9,12 +11,19 @@ Problematica a resolver:
 Listado de productos y bodegas de una librería
 
 La librería “El gran Poeta”, para la organización de sus sucursales, requiere de un sistema que permita visualizar un listado de productos en cada una de las bodegas que esta empresa posee.
+
 El sistema por realizar es una primera aproximación a un sistema de inventario, considerando las siguientes funcionalidades esperadas por el cliente:
+
 1.	Se deberán poder crear productos en el inventario.
+
 a.	Los productos podrán ser:
+
 i.	Libros
+
 ii.	Revistas
+
 iii.	Enciclopedias
+
 b.	Se deberá reconocer a cada producto, la editorial y el o los autores relacionados.
 c.	Se deberá poder agregar una breve descripción o resumen del producto.
 2.	Se deberán gestionar las bodegas existentes en la organización, identificando de forma única cada una de ellas.
